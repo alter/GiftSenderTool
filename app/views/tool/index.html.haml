@@ -1,2 +1,6 @@
-%h1 Tool#index
-%p Find me in app/views/tool/index.html.haml
+= form_tag tool_activation_path, :method => :post do
+  %table{ :border => 0, :width => "100%", :height => "100%" }
+    %tr{ :align => "center", :valign => "center" }
+      %td
+        = text_field_tag "accountName", ""
+        = submit_tag "Submit"
