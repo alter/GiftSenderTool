@@ -13,5 +13,8 @@ class ToolController < ApplicationController
   end
 
   def sending
+    @accountName = params[:accountName]
+    @shardName   = params[:shardName]
+    @avatarId    = params[:avatarId]
   end
 end

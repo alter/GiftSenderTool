@@ -11,7 +11,7 @@
         %select{ :name => "avatarId" }
           - @client.getAvatars(@accountName).each do |avatar|
             - if(!avatar['deleted'])
-              %option
+              %option{ :value => avatar['avatarId'] }
                 =avatar['avatar']
     %tr
       %td
@@ -19,11 +19,11 @@
       %td
         %select{:name => "shardName"}
           =@client.getAllShards().each do |shard|
-            %option
+            %option{ :value => shard }
               =shard
     %tr
       %td
         Code:
       %td
         %input{:name => "code", :size => "20", :type => "text"}
-  = submit_tag "Submit"
+  = submit_tag "Activate"
