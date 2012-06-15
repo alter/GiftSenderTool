@@ -8,7 +8,7 @@ class ToolController < ApplicationController
     @client = Hessian2::HessianClient.new(master_gmtool_apiurl)
     @client.user = 'vzlobin'
     @client.password = '1'
-    @res = @client.getAllShards()
+    
     respond_to :html
   end
 

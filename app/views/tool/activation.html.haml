@@ -1,35 +1,29 @@
--#%pre
--#  %h1 Activation Code
--#  %form{ :action => tool_sending_path, :method => "post" }
--#    %table
--#      %tr
--#        %td
--#          %input{ :name => "accountName", :type => "hidden", :value => =@accountName }
--#      %tr
--#        %td Avatar:
--#        %td
--#          %select{ :name => "avatarId" }
--#            <?
--#            foreach ($avatars as $avatar)
--#            if(0 == sprintf("%d",$avatar->isDeleted()))
--#            printf("
--#            %option{:value => "\\\"%d\\"}> %s
--#            \\n ", $avatar->getAvatarId(), $avatar->getAvatar());
--#            ?>
--#      %tr
--#        %td ShardName:
--#        %td
--#          %select{:name => "shardName"}
--#            <?
--#            foreach ($shards as $shard)
--#            printf("
--#            %option{:value => "\\\"%s\\"}> %s
--#            \\n ", $shard, $shard);
--#            ?>
--#      %tr
--#        %td Code:
--#        %td
--#          %input{:name => "code", :size => "20", :type => "text"}
--#    %input{:name => "activate", :type => "submit", :value => "Activate"}
--#/
-%pre=@res.inspect
+%h1 Activation Code
+%form{ :action => tool_sending_path, :method => "post" }
+  %table
+    %tr
+      %td
+        %input{ :name => "accountName", :type => "hidden", :value => @accountName }
+    %tr
+      %td
+        Avatar:
+      %td
+        %select{ :name => "avatarId" }
+          - @client.getAvatars(@accountName).each do |avatar|
+            - if(!avatar['deleted'])
+              %option
+                =avatar['avatar']
+    %tr
+      %td
+        ShardName:
+      %td
+        %select{:name => "shardName"}
+          =@client.getAllShards().each do |shard|
+            %option
+              =shard
+    %tr
+      %td
+        Code:
+      %td
+        %input{:name => "code", :size => "20", :type => "text"}
+  = submit_tag "Submit"
