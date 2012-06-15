@@ -1,19 +1,17 @@
 class ToolController < ApplicationController
   def index
-    respond_to do |format|
-      format.html
-    end
   end
 
   def activation
-    respond_to do |format|
-      format.html
-    end
+    @accountName = params[:accountName]
+    master_gmtool_apiurl = 'http://192.168.198.74:8088/gametool/hessian/account.api'
+    @client = Hessian2::HessianClient.new(master_gmtool_apiurl)
+    @client.user = 'vzlobin'
+    @client.password = '1'
+    @res = @client.getAllShards()
+    respond_to :html
   end
 
   def sending
-    respond_to do |format|
-      format.html
-    end
   end
 end

@@ -1,3 +1,9 @@
+GIT
+  remote: git://github.com/takafan/hessian2.git
+  revision: 90ea3ba4c86b6b3be0b66634e2d1d5ac5fc577b1
+  specs:
+    hessian2 (1.0.3)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -116,6 +122,7 @@ DEPENDENCIES
   execjs
   haml
   haml-rails
+  hessian2!
   jquery-rails
   json
   rails (= 3.2.6)
