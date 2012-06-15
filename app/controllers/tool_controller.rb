@@ -16,5 +16,6 @@ class ToolController < ApplicationController
     @accountName = params[:accountName]
     @shardName   = params[:shardName]
     @avatarId    = params[:avatarId]
+    @code        = params[:code]
   end
 end
