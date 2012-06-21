@@ -1,6 +1,4 @@
 class ToolController < ApplicationController
-  def index
-  end
 
   def gmtoolConnection(ip="192.168.198.74", port="8088", user="vzlobin", password="1")
     apiurl = "http://#{ip}:#{port}/gametool/hessian/account.api"
@@ -14,23 +12,41 @@ class ToolController < ApplicationController
     @billing = Hessian2::HessianClient.new(apiurl)
   end
 
+  def masterConnection(ip="192.168.198.66", port="10500")
+    apiurl = "http://#{ip}:#{port}/masterServer";
+    @master = Hessian2::HessianClient.new(apiurl)
+  end
+
+  def index
+    masterConnection()
+  end
+
   def activation
-    @accountName = params[:accountName]
-    gmtoolConnection()
+    @account_name = params[:account_name]
+    @shard_id   = params[:shard_id]
+
+    masterConnection()
+
+    shard_config = @master.getShardConfig(@shard_id.to_i)
+    xml_config = XmlSimple.xml_in(shard_config['config'], { 'KeyAttr' => 'name' })
+    
+    @gametool_host = xml_config['gametoolEAR'][0]['web'][0]['host']
+    @gametool_port = xml_config['gametoolEAR'][0]['web'][0]['port']
+      
+    gmtoolConnection(@gametool_host,@gametool_port)
     
     respond_to :html
   end
 
   def sending
-    @accountName = params[:accountName]
-    @shardName   = params[:shardName]
-    @avatarId    = params[:avatarId]
+    @account_name = params[:account_name]
+    @shard_name   = params[:shard_name]
+    @avatar_id    = params[:avatar_id]
     @code        = params[:code]
 
     gmtoolConnection()
     billingConnection()
-
-    
+   
 
   end
 end

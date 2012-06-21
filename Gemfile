@@ -6,6 +6,8 @@ gem 'therubyracer'
 gem 'haml'
 gem 'haml-rails'
 gem 'hessian2', :git => 'git://github.com/takafan/hessian2.git'
+gem 'xml-simple', :require => 'xmlsimple'
+
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 

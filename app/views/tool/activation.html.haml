@@ -3,27 +3,28 @@
   %table
     %tr
       %td
-        %input{ :name => "accountName", :type => "hidden", :value => @accountName }
+        %input{ :name => "account_name", :type => "hidden", :value => @account_name }
+    %tr
+      %td
+        %input{ :name => "shard_name", :type => "hidden", :value => @shard_name }
+    %tr
+      %td
+        %input{ :name => "gametool_host", :type => "hidden", :value => @gametool_host }
+    %tr
+      %td
+        %input{ :name => "gametool_port", :type => "hidden", :value => @gametool_port }
     %tr
       %td
         Avatar:
       %td
-        %select{ :name => "avatarId" }
-          - @gmtool.getAvatars(@accountName).each do |avatar|
-            - if(!avatar['deleted'])
+        %select{ :name => "avatar_id" }
+          -@gmtool.getAvatars(@account_name).each do |avatar|
+            -if(!avatar['deleted'])
               %option{ :value => avatar['avatarId'] }
                 =avatar['avatar']
-    %tr
-      %td
-        ShardName:
-      %td
-        %select{:name => "shardName"}
-          =@gmtool.getAllShards().each do |shard|
-            %option{ :value => shard }
-              =shard
     %tr
       %td
         Code:
       %td
         %input{:name => "code", :size => "20", :type => "text"}
-  = submit_tag "Activate"
+  =submit_tag "activate"

@@ -2,5 +2,9 @@
   %table{ :border => 0, :width => "100%", :height => "100%" }
     %tr{ :align => "center", :valign => "center" }
       %td
-        = text_field_tag "accountName", "test01"
-        = submit_tag "Submit"
+        = text_field_tag "account_name", "test01"
+        %select{:name => "shard_id"}
+          =@master.getShards().each do |shard|
+            %option{ :value => shard['id'] }
+              =shard['name']
+        = submit_tag "submit"
