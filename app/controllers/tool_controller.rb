@@ -32,7 +32,8 @@ class ToolController < ApplicationController
     
     @gametool_host = xml_config['gametoolEAR'][0]['web'][0]['host']
     @gametool_port = xml_config['gametoolEAR'][0]['web'][0]['port']
-      
+    @shard_name = xml_config['name']
+
     gmtoolConnection(@gametool_host,@gametool_port)
     
     respond_to :html
