@@ -3,6 +3,8 @@
   %table
     %tr
       %td
+        %input{:type=>"hidden", :name=>"authenticity_token", :value=>form_authenticity_token.to_s}
+      %td
         %input{ :name => "account_name", :type => "hidden", :value => @account_name }
     %tr
       %td

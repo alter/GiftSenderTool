@@ -7,4 +7,6 @@
           =@master.getShards().each do |shard|
             %option{ :value => shard['id'] }
               =shard['name']
+        %input{:type=>"hidden", :name=>"authenticity_token", :value=>form_authenticity_token.to_s}
+
         = submit_tag "submit"
