@@ -34,7 +34,7 @@ class ToolController < ApplicationController
     @gametool_port = xml_config['gametoolEAR'][0]['web'][0]['port']
     @shard_name = xml_config['name']
 
-    gmtool_connection(@gametool_host,@gametool_port)
+    gmtool_connection(@gametool_host, @gametool_port)
     
     respond_to :html
   end
@@ -44,10 +44,26 @@ class ToolController < ApplicationController
     @shard_name   = params[:shard_name]
     @avatar_id    = params[:avatar_id]
     @code        = params[:code]
-
-    gmtool_connection()
+    @gametool_host = params[:gametool_host]
+    @gametool_port = params[:gametool_port]
+    gmtool_connection(@gametool_host, @gametool_port)
     billing_connection()
-   
-
+    if Present.select('ttl').where(:code => @code).count > 0
+      if Present.select('ttl').where(:code => @code)[0]['ttl'] > 0
+         if History.where(:code => @code, :account_name => @account_name).count == 0
+           if History.where(:code => @code, :avatar_id => @avatar_id, :shard => @shard_name).count == 0
+             @message = "ok"
+           else
+             @message = "You have used this code !"
+           end
+         else
+          @message = "You have used this code !"
+         end
+      else
+        @message = "This code has been expired !"
+      end
+    else
+      @message = "This isn't valide code!"
+    end
   end
 end
