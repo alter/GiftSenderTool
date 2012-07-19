@@ -34,12 +34,30 @@ class ToolController < ApplicationController
     end
   end
 
+  def history_create(account_name, shard_name, avatar_id, code, time = Time.now)
+    record = History.new
+    record.account_name = account_name
+    record.shard = shard_name
+    record.avatar_id = avatar_id
+    record.code = code
+    record.used_at = time
+    record.save
+  end
+
+  def update_ttl()
+    record = Present.find_by_code(@code)
+    record.ttl -= 1
+    record.save
+  end
+
   def error()
     @error = params[:error]
+    respond_to :html
   end
 
   def index
     master_connection()
+    respond_to :html
   end
 
   def activation
@@ -83,7 +101,7 @@ class ToolController < ApplicationController
                   begin
                     @billing.addMoneyWithCurrency(@account_name, currency, 6, get_transaction_id)
                   rescue
-                    @message = "Can't execute script for money"
+                    @message = "Can't execute script for setting money"
                   end
                 when "add_item"
                   item = {}
@@ -97,13 +115,16 @@ class ToolController < ApplicationController
                       'senderName' => "ActivationCodeSystem",
                       'subject' => "Gift",
                       'body' => "Hello, it's gift for you from code #{@code}"
-                    }
+                  }
                   items = []
                   items[0] = item
                   begin
                     @gmtool.multisendItemToAvatarByMail(items)
                   rescue
-                    @message = "Can't execute script for item"
+                    @message = "Can't execute script for sending item(s)"
+                  else
+                    update_ttl()
+                    history_create(@account_name, @shard_name, @avatar_id, @code)
                   end
                 else
                   @message = "Are you trying to hack me ?"
@@ -122,5 +143,6 @@ class ToolController < ApplicationController
     else
       @message = "This isn't valide code!"
     end
+    respond_to :html
   end
 end
