@@ -8,7 +8,10 @@ gem 'haml-rails'
 gem 'hessian2', :git => 'git://github.com/takafan/hessian2.git'
 gem 'xml-simple', :require => 'xmlsimple'
 gem 'rails_db_dump'
-
+gem 'hirb'
+gem 'wirb'
+gem 'wirble'
+gem 'awesome_print'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 

@@ -5,6 +5,7 @@ GiftSenderTool::Application.routes.draw do
   get  "tool/index"
   post "tool/activation"
   post "tool/sending"
+  get  "tool/error"
 
   root :to => "tool#index"
   # The priority is based upon order of creation:

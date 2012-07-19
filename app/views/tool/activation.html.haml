@@ -19,11 +19,7 @@
       %td
         Avatar:
       %td
-        %select{ :name => "avatar_id" }
-          -@gmtool.getAvatars(@account_name).each do |avatar|
-            -if((!avatar['deleted']) && (avatar['shard'] == @shard_name))
-              %option{ :value => avatar['avatarId'] }
-                =avatar['avatar']
+        =get_avatars(@gmtool, @account_name, @shard_name)
     %tr
       %td
         Code:
