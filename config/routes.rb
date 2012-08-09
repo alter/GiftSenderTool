@@ -8,6 +8,7 @@ GiftSenderTool::Application.routes.draw do
   get  "tool/error"
 
   root :to => "tool#index"
+  match 'admin' => 'admin#index'
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

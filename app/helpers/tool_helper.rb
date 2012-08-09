@@ -1,4 +1,4 @@
-module ToolHelper
+  module ToolHelper
     def get_avatars(gmtool_handler, account_name, shard_name)
       begin
         gmtool_handler.getAvatars(account_name)

@@ -1,2 +1,47 @@
-%h1 Admin#index
-%p Find me in app/views/admin/index.html.haml
+-content_for :javascript do
+  =javascript_include_tag "jquery.table.addrow.js"
+  =javascript_include_tag "jquery.min.js"
+
+%h1 Generate new code
+%table{:border => "0", :width => "100%"}
+  %tr{:valign => "top"}
+    %td
+      %form#myForm{:action => "", :method => "post"}
+        %table
+          %tr
+            %td.noClone Description:
+            %td.noClone
+              %input{:name => "type", :size => "15", :type => "text"}/
+          %tr
+            %td.noClone TTL*:
+            %td.noClone
+              %input{:name => "ttl", :size => "15", :type => "text", :value => "1"}/
+          %tr
+            %td.noClone Amount*:
+            %td.noClone
+              %input{:name => "amount", :size => "15", :type => "text", :value => "1"}/
+          %tr
+            %td
+              Rule:
+              %select#rule1{:name => "rule1"}
+                -@rules.each do |rule|
+                  %option{:value => rule['id']}
+                    =rule['name']
+          %tr
+            %td
+              %input{:type=>"hidden", :name=>"authenticity_token", :value=>form_authenticity_token.to_s}
+          %tr
+            %td
+              Value*:
+              %input#value1{:name => "value1", :size => "10", :type => "text"}/
+            %td
+              StackCount:
+              %input#stackcount1{:name => "stackcount1", :size => "1", :type => "text", :value => "1"}/
+              %input.delRow{:type => "button", :value => "Delete"}/
+          %tr
+            %td
+              %input.addRow-ignoreClass{:type => "button", :value => "add rule"}/
+          %tr
+            %td
+              %input{:name => "activate", :type => "submit", :value => "Generate code"}/
+
