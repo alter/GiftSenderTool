@@ -1,0 +1,8 @@
+function sendjson()
+{
+    var formData = form2object('myForm');
+    var json_data = JSON.stringify(formData, null, '\t');
+    document.getElementById('testArea').innerHTML = json;
+    $.post("", json_data);
+}
+        

@@ -1,7 +1,8 @@
 GiftSenderTool::Application.routes.draw do
   get  "admin/index"
   post "admin/index"
-
+  post "admin/create"
+      
   get  "tool/index"
   post "tool/activation"
   post "tool/sending"
