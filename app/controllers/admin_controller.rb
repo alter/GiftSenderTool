@@ -62,7 +62,8 @@ class AdminController < ApplicationController
     ttl = 1 if ttl == ""
 
     created_type = 0
-  
+    type_id = -1
+
     if type != ""
       params.each do |key, value|
         if(key.to_s[/rule.*/])
